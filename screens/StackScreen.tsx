@@ -136,7 +136,7 @@ export function StackScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: PS_TOKENS.bg },
-  deck: { flex: 1, paddingHorizontal: 16, paddingTop: 4 },
+  deck: { flex: 1, paddingHorizontal: 16, paddingTop: 4, overflow: 'hidden' },
   emptyState: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   emptyEmoji: { fontSize: 48, marginBottom: 12 },
   emptyTitle: { fontSize: 20, fontWeight: '700', color: PS_TOKENS.ink, marginBottom: 6 },

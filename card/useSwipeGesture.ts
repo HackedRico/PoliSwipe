@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import {
   runOnJS,
@@ -22,17 +23,25 @@ export function useSwipeGesture(
   const ty = useSharedValue(0);
   const pressing = useSharedValue(0);
 
+  // Keep refs to avoid stale closures when called from worklets
+  const cardRef = useRef(card);
+  cardRef.current = card;
+  const onSwipeRef = useRef(onSwipe);
+  onSwipeRef.current = onSwipe;
+
   const triggerSwipe = (dir: SwipeDir) => {
     if (dir === 'right')
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     else if (dir === 'left')
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
     else Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    onSwipe(card, dir);
+    onSwipeRef.current(cardRef.current, dir);
   };
 
   const pan = Gesture.Pan()
     .enabled(isTop)
+    .activeOffsetX([-15, 15])
+    .activeOffsetY([-15, 15])
     .onBegin(() => {
       pressing.value = withTiming(1, { duration: 120 });
     })

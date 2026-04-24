@@ -94,8 +94,7 @@ export function StackScreen() {
             <Text style={styles.emptySub}>Try clearing your filters above</Text>
           </View>
         ) : (
-          deck
-            .slice(idx % deck.length, (idx % deck.length) + 3)
+          Array.from({ length: Math.min(3, deck.length) }, (_, i) => deck[(idx + i) % deck.length])
             .reverse()
             .map((c, i, arr) => (
               <SwipeCard

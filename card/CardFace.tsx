@@ -7,6 +7,7 @@ import { shadow } from '@/theme/shadow';
 import Chip from '@/components/Chip';
 import StatPill from '@/components/StatPill';
 import { SwipeOverlay } from './SwipeOverlay';
+import { getCommentBadge } from '@/data/comments';
 import type { Card } from '@/types';
 
 interface CardFaceProps {
@@ -15,16 +16,35 @@ interface CardFaceProps {
   ty: SharedValue<number>;
   isTop: boolean;
   onMoreDetails: (card: Card) => void;
+  onComments?: (card: Card) => void;
 }
 
-export function CardFace({ card, tx, ty, isTop, onMoreDetails }: CardFaceProps) {
+export function CardFace({ card, tx, ty, isTop, onMoreDetails, onComments }: CardFaceProps) {
   const isRally = card.type === 'rally';
   const hasRallyMeta = isRally && card.when && card.where;
+  const badge = getCommentBadge(card.id);
 
   return (
     <View style={styles.root}>
       {/* Chip */}
       <Chip type={card.type} emoji={card.emoji} label={card.chipLabel} />
+
+      {/* Comments badge — top-right, tap-only */}
+      {badge && badge.count > 0 && (
+        <Pressable
+          style={styles.commentsBadge}
+          onPress={(e) => {
+            e.stopPropagation();
+            onComments?.(card);
+          }}
+          hitSlop={6}
+        >
+          <Text style={styles.commentsBadgeText}>
+            {'\ud83d\udcac'} {badge.count}
+            {badge.topReactionEmoji ? ` \u00B7 ${badge.topReactionEmoji}` : ''}
+          </Text>
+        </Pressable>
+      )}
 
       {/* Headline */}
       <Text style={styles.headline}>{card.headline}</Text>
@@ -133,6 +153,27 @@ const styles = StyleSheet.create({
     padding: 22,
     overflow: 'hidden',
     ...shadow.card,
+  },
+  commentsBadge: {
+    position: 'absolute',
+    top: 18,
+    right: 18,
+    backgroundColor: 'rgba(255,255,255,0.94)',
+    borderWidth: 1,
+    borderColor: PS_TOKENS.dividerWarm,
+    borderRadius: 999,
+    paddingVertical: 7,
+    paddingHorizontal: 11,
+    minHeight: 44,
+    justifyContent: 'center',
+    zIndex: 5,
+    ...shadow.button,
+  },
+  commentsBadgeText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: PS_TOKENS.ink,
+    letterSpacing: -0.2,
   },
   headline: {
     ...TEXT.cardHeadline,

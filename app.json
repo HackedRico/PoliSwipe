@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "PoliSwipe",
+    "slug": "poliswipe",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "poliswipe",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FAFAF7"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCalendarsFullAccessUsageDescription": "PoliSwipe adds rally events to your calendar when you RSVP."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#FAFAF7"
+      }
+    },
+    "plugins": [
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "PoliSwipe adds rally events to your calendar when you RSVP."
+        }
+      ],
+      "expo-font"
+    ]
+  }
+}

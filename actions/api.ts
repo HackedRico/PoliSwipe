@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import type { Card, ChatMessage } from '@/types';
+import type { Card, ChatMessage, PostDraft } from '@/types';
 
 function getBackendUrl(): string {
   // In Expo Go, debuggerHost gives us the dev machine's LAN IP
@@ -48,6 +48,23 @@ export async function fetchAIChat(
     if (!resp.ok) return null;
     const data = await resp.json();
     return data.reply ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function submitPost(
+  draft: PostDraft,
+): Promise<{ status: string; id: string } | null> {
+  try {
+    const resp = await fetch(`${getBackendUrl()}/api/posts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(draft),
+    });
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    return data ?? null;
   } catch {
     return null;
   }

@@ -21,6 +21,7 @@ import { usePersistentState } from '@/hooks/usePersistentState';
 import { useFilteredDeck } from '@/hooks/useFilteredDeck';
 import type { Card, CardType, SavedItem, SwipeDir } from '@/types';
 import { PS_TOKENS } from '@/theme/tokens';
+import { submitPost } from '@/actions/api';
 
 export function StackScreen() {
   const insets = useSafeAreaInsets();
@@ -94,8 +95,7 @@ export function StackScreen() {
             <Text style={styles.emptySub}>Try clearing your filters above</Text>
           </View>
         ) : (
-          deck
-            .slice(idx % deck.length, (idx % deck.length) + 3)
+          Array.from({ length: Math.min(3, deck.length) }, (_, i) => deck[(idx + i) % deck.length])
             .reverse()
             .map((c, i, arr) => (
               <SwipeCard
@@ -128,7 +128,7 @@ export function StackScreen() {
       <SavedSheet ref={savedRef} items={saved} />
       <PostSheet
         ref={postRef}
-        onSubmit={(d) => console.log('post submitted', d)}
+        onSubmit={(d) => { submitPost(d); }}
       />
     </View>
   );

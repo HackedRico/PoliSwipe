@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import httpx
+import uuid
 
 app = FastAPI(title="PoliSwipe Backend")
 
@@ -91,6 +92,35 @@ async def chat(req: ChatRequest):
     prompt = f"{context}{history_text}Student: {req.message}\nPoliSwipe:"
     text = await query_ollama(prompt, system)
     return {"reply": text}
+
+
+# --- Posts (in-memory store) ---
+
+class PostDraftIn(BaseModel):
+    type: str  # rally | petition | election | discussion
+    title: str
+    summary: str
+    when: str | None = None
+    where: str | None = None
+
+
+posts: list[dict] = []
+
+
+@app.post("/api/posts")
+async def create_post(req: PostDraftIn):
+    post = {
+        "id": str(uuid.uuid4()),
+        "status": "pending",
+        **req.model_dump(),
+    }
+    posts.append(post)
+    return {"status": "pending", "id": post["id"]}
+
+
+@app.get("/api/posts")
+async def list_posts():
+    return {"posts": posts}
 
 
 @app.get("/health")

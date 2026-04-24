@@ -21,6 +21,7 @@ import { usePersistentState } from '@/hooks/usePersistentState';
 import { useFilteredDeck } from '@/hooks/useFilteredDeck';
 import type { Card, CardType, SavedItem, SwipeDir } from '@/types';
 import { PS_TOKENS } from '@/theme/tokens';
+import { submitPost } from '@/actions/api';
 
 export function StackScreen() {
   const insets = useSafeAreaInsets();
@@ -127,7 +128,7 @@ export function StackScreen() {
       <SavedSheet ref={savedRef} items={saved} />
       <PostSheet
         ref={postRef}
-        onSubmit={(d) => console.log('post submitted', d)}
+        onSubmit={(d) => { submitPost(d); }}
       />
     </View>
   );

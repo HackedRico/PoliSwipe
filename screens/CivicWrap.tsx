@@ -67,12 +67,26 @@ export function CivicWrap() {
     return () => clearInterval(timer);
   }, [careCount]);
 
+  const handleBack = () => {
+    router.back();
+  };
+
   const handleStartOver = () => {
     setIdx(0);
     router.replace('/');
   };
 
   return (
+    <View style={{ flex: 1 }}>
+      {/* Fixed close button */}
+      <Pressable
+        style={[styles.closeBtn, { top: insets.top + 12 }]}
+        onPress={handleBack}
+        hitSlop={12}
+      >
+        <Text style={styles.closeIcon}>{'\u2715'}</Text>
+      </Pressable>
+
     <ScrollView
       pagingEnabled
       showsVerticalScrollIndicator={false}
@@ -216,12 +230,29 @@ export function CivicWrap() {
         </View>
       </View>
     </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   scroll: {
     flex: 1,
+  },
+  closeBtn: {
+    position: 'absolute',
+    right: 20,
+    zIndex: 10,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(0,0,0,0.08)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  closeIcon: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: PS_TOKENS.ink,
   },
   panel: {
     height: SCREEN_H,

@@ -85,7 +85,8 @@ export default function NavChips({
 const styles = StyleSheet.create({
   container: {
     height: 44,
-    zIndex: 1,
+    zIndex: 20,
+    position: 'relative',
   },
   scroll: {
     paddingHorizontal: 14,

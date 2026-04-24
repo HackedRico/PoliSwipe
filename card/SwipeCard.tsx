@@ -11,6 +11,7 @@ interface SwipeCardProps {
   stackIndex: number;
   onSwipe: (c: Card, d: SwipeDir) => void;
   onMoreDetails: (c: Card) => void;
+  onComments?: (c: Card) => void;
 }
 
 export function SwipeCard({
@@ -19,6 +20,7 @@ export function SwipeCard({
   stackIndex,
   onSwipe,
   onMoreDetails,
+  onComments,
 }: SwipeCardProps) {
   const { pan, tx, ty, pressing } = useSwipeGesture(card, isTop, onSwipe);
 
@@ -62,6 +64,7 @@ export function SwipeCard({
           ty={ty}
           isTop={isTop}
           onMoreDetails={onMoreDetails}
+          onComments={onComments}
         />
       </Animated.View>
     </GestureDetector>

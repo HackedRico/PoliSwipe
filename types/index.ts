@@ -52,3 +52,28 @@ export interface ChatMessage {
   text: string;
   sources?: Source[];
 }
+
+// --- Community Takes (Comments) ---
+
+export type EmojiKey = '\ud83d\udc4d' | '\u2764\ufe0f' | '\ud83e\udd14' | '\ud83d\ude24' | '\u2728';
+
+export type OrgBadge = 'Organizer' | 'Student press' | 'UMD office' | 'Verified org';
+
+export interface Comment {
+  id: string;
+  cardId: string;
+  parentId?: string;
+  authorId: string;
+  displayName: string;
+  major?: string;
+  year?: string;
+  dorm?: string;
+  verified: boolean;
+  badge?: OrgBadge;
+  body: string;
+  createdAt: string;
+  reactions: Record<EmojiKey, number>;
+  myReactions: EmojiKey[];
+  replies?: Comment[];
+  removed?: boolean;
+}

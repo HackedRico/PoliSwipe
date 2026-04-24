@@ -16,6 +16,7 @@ import { DetailsSheet } from '@/sheets/DetailsSheet';
 import { FilterSheet } from '@/sheets/FilterSheet';
 import { SavedSheet } from '@/sheets/SavedSheet';
 import { PostSheet } from '@/sheets/PostSheet';
+import { CommentsSheet } from '@/sheets/CommentsSheet';
 
 import { usePersistentState } from '@/hooks/usePersistentState';
 import { useFilteredDeck } from '@/hooks/useFilteredDeck';
@@ -31,6 +32,7 @@ export function StackScreen() {
   const [saved, setSaved] = usePersistentState<SavedItem[]>('saved', []);
   const [filters, setFilters] = usePersistentState<CardType[]>('filters', []);
   const [activeCard, setActiveCard] = useState<Card | null>(null);
+  const [commentsCard, setCommentsCard] = useState<Card | null>(null);
   const [chatMode, setChatMode] = useState<'global' | 'card'>('global');
 
   const actionRef = useRef<BottomSheetModal>(null);
@@ -39,6 +41,7 @@ export function StackScreen() {
   const filterRef = useRef<BottomSheetModal>(null);
   const savedRef = useRef<BottomSheetModal>(null);
   const postRef = useRef<BottomSheetModal>(null);
+  const commentsRef = useRef<BottomSheetModal>(null);
 
   const deck = useFilteredDeck(filters);
 
@@ -107,6 +110,10 @@ export function StackScreen() {
                   setActiveCard(cd);
                   detailsRef.current?.present();
                 }}
+                onComments={(cd) => {
+                  setCommentsCard(cd);
+                  commentsRef.current?.present();
+                }}
               />
             ))
         )}
@@ -129,6 +136,7 @@ export function StackScreen() {
         ref={postRef}
         onSubmit={(d) => console.log('post submitted', d)}
       />
+      <CommentsSheet ref={commentsRef} card={commentsCard} />
     </View>
   );
 }

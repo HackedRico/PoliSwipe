@@ -2,7 +2,7 @@
 
 **Swipe right on democracy** -- civic engagement that feels like a dating app, not a textbook.
 
-Built for the UMD x Anthropic Hackathon 2026 | Track: Governance & Accessibility
+Winner -- Governance & Accessibility Track | UMD x Anthropic Hackathon 2026
 
 ## What is PoliSwipe?
 
@@ -93,6 +93,13 @@ Claude powers two features through the FastAPI backend:
 2. **Policy Chat** (`/api/chat`) -- answers questions about civic issues with concise, factual responses
 
 Both use a three-tier fallback: Claude API -> scripted instant replies -> hardcoded fallbacks. The app never shows an error state.
+
+## Built by
+
+- [Ricky Chen](https://github.com/HackedRico)
+- [Princeobiuto Aguguo](https://github.com/agugoat)
+- [Emmanuel Adedeji](https://github.com/eadedeji8)
+- [Nimi Ojikutu](https://github.com/Nimi-Ojikutu)
 
 ## License
 

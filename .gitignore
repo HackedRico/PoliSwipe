@@ -11,3 +11,11 @@ web-build/
 __pycache__/
 *.pyc
 .env
+.env.local
+.env*.local
+.venv/
+venv/
+.DS_Store
+.idea/
+.vscode/
+*.log

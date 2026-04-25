@@ -10,6 +10,7 @@ import { Backdrop } from './Backdrop';
 import { PS_TOKENS } from '@/theme/tokens';
 import { TEXT } from '@/theme/typography';
 import TypingDots from '@/components/TypingDots';
+import { FormattedText } from '@/components/FormattedText';
 import { GLOBAL_PROMPTS, SCRIPTED, GLOBAL_REPLIES, FALLBACK_REPLY } from '@/data/chatScripts';
 import { fetchAIChat } from '@/actions/api';
 import type { Card, ChatMessage, Source } from '@/types';
@@ -171,14 +172,16 @@ const ChatSheet = forwardRef<BottomSheetModal, ChatSheetProps>(
                     msg.role === 'user' ? styles.userBubble : styles.aiBubble,
                   ]}
                 >
-                  <Text
-                    style={[
-                      TEXT.chatBody,
-                      msg.role === 'user' ? styles.userText : styles.aiText,
-                    ]}
-                  >
-                    {msg.text}
-                  </Text>
+                  {msg.role === 'ai' ? (
+                    <FormattedText
+                      text={msg.text}
+                      color={PS_TOKENS.ink}
+                    />
+                  ) : (
+                    <Text style={[TEXT.chatBody, styles.userText]}>
+                      {msg.text}
+                    </Text>
+                  )}
                 </View>
                 {msg.role === 'ai' && renderSources(msg.sources)}
               </View>

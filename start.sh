@@ -2,6 +2,14 @@
 
 echo "=== PoliSwipe Startup ==="
 
+# Load environment variables
+if [ -f .env ]; then
+  export $(grep -v '^#' .env | xargs)
+  echo "Loaded .env"
+else
+  echo "Warning: No .env file found -- backend AI features will fail"
+fi
+
 # Kill any existing Expo and backend processes
 echo "Cleaning up old processes..."
 pkill -f "expo start" 2>/dev/null
@@ -24,7 +32,7 @@ sleep 2
 if curl -s http://localhost:8000/health > /dev/null 2>&1; then
   echo "Backend is healthy"
 else
-  echo "Warning: Backend may not be connected to Ollama"
+  echo "Warning: Backend may not have started correctly"
 fi
 
 # Start Expo

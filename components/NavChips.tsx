@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PS_TOKENS } from '@/theme/tokens';
 import { shadow } from '@/theme/shadow';
 
@@ -34,7 +35,7 @@ export default function NavChips({
       contentContainerStyle={styles.scroll}
     >
       {/* Filter pill */}
-      <Pressable
+      <TouchableOpacity activeOpacity={0.7}
         style={[styles.pill, filterActive && styles.pillActive, shadow.softRow]}
         onPress={onFilter}
       >
@@ -46,10 +47,10 @@ export default function NavChips({
             <Text style={styles.badgeText}>{filterCount}</Text>
           </View>
         )}
-      </Pressable>
+      </TouchableOpacity>
 
       {/* Saved pill */}
-      <Pressable
+      <TouchableOpacity activeOpacity={0.7}
         style={[styles.pill, savedActive && styles.pillActive, shadow.softRow]}
         onPress={onSaved}
       >
@@ -61,22 +62,22 @@ export default function NavChips({
             <Text style={styles.badgeText}>{savedCount}</Text>
           </View>
         )}
-      </Pressable>
+      </TouchableOpacity>
 
       {/* Post pill */}
-      <Pressable style={[styles.pill, shadow.softRow]} onPress={onPost}>
+      <TouchableOpacity activeOpacity={0.7} style={[styles.pill, shadow.softRow]} onPress={onPost}>
         <Text style={styles.pillText}>+ Post</Text>
-      </Pressable>
+      </TouchableOpacity>
 
       {/* Recap pill */}
-      <Pressable style={[styles.pill, styles.recapPill]} onPress={onRecap}>
+      <TouchableOpacity activeOpacity={0.7} style={[styles.pill, styles.recapPill]} onPress={onRecap}>
         <Text style={styles.recapText}>Recap</Text>
         {careCount > 0 && (
           <View style={styles.recapBadge}>
             <Text style={styles.badgeText}>{careCount}</Text>
           </View>
         )}
-      </Pressable>
+      </TouchableOpacity>
     </ScrollView>
     </View>
   );

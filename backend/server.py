@@ -53,7 +53,7 @@ async def query_ollama(prompt: str, system: str = "") -> str:
             resp.raise_for_status()
             return resp.json().get("response", "")
     except Exception as e:
-        return f"[AI unavailable: {e}]"
+        return "[AI unavailable]"
 
 
 @app.post("/api/draft")

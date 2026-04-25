@@ -1,12 +1,13 @@
 """
-PoliSwipe backend -- proxies to local Ollama for AI features.
+PoliSwipe backend -- uses Claude API for AI features.
 Run: uvicorn backend.server:app --host 0.0.0.0 --port 8000 --reload
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import httpx
+import anthropic
 import uuid
+import os
 
 app = FastAPI(title="PoliSwipe Backend")
 
@@ -17,8 +18,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "llama3.2:latest"
+MODEL = "claude-haiku-4-5-20251001"
+
+client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env
 
 
 class DraftRequest(BaseModel):
@@ -37,21 +39,16 @@ class ChatRequest(BaseModel):
     history: list[dict] = []
 
 
-async def query_ollama(prompt: str, system: str = "") -> str:
-    """Call local Ollama instance."""
+async def query_claude(system: str, user_prompt: str) -> str:
+    """Call Claude API."""
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.post(
-                OLLAMA_URL,
-                json={
-                    "model": MODEL,
-                    "prompt": prompt,
-                    "system": system,
-                    "stream": False,
-                },
-            )
-            resp.raise_for_status()
-            return resp.json().get("response", "")
+        message = client.messages.create(
+            model=MODEL,
+            max_tokens=300,
+            system=system,
+            messages=[{"role": "user", "content": user_prompt}],
+        )
+        return message.content[0].text
     except Exception as e:
         return "[AI unavailable]"
 
@@ -68,7 +65,7 @@ async def draft_action(req: DraftRequest):
         f"Context: {req.summary}\n\n"
         f"The student is a {req.user_year} {req.user_major} major at the University of Maryland."
     )
-    text = await query_ollama(prompt, system)
+    text = await query_claude(system, prompt)
     return {"draft": text}
 
 
@@ -89,7 +86,7 @@ async def chat(req: ChatRequest):
         history_text += f"{role}: {msg.get('text', '')}\n"
 
     prompt = f"{context}{history_text}Student: {req.message}\nPoliSwipe:"
-    text = await query_ollama(prompt, system)
+    text = await query_claude(system, prompt)
     return {"reply": text}
 
 

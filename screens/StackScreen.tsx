@@ -84,10 +84,7 @@ export function StackScreen() {
         activeFilters={filters}
         savedCount={saved.length}
         careCount={careCount}
-        onFilter={() => {
-          console.log('[DEBUG] Filter tapped, ref exists:', !!filterRef.current);
-          filterRef.current?.present();
-        }}
+        onFilter={() => filterRef.current?.present()}
         onSaved={() => savedRef.current?.present()}
         onPost={() => postRef.current?.present()}
         onRecap={() => router.push('/wrap')}

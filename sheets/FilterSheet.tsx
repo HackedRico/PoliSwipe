@@ -41,8 +41,6 @@ const FilterSheet = forwardRef<BottomSheetModal, FilterSheetProps>(
       }
     }, [local, onChange, ref]);
 
-    console.log('[DEBUG] FilterSheet render, local:', local, 'active:', active);
-
     const subtitle =
       local.length === 0
         ? 'Everything'
@@ -56,7 +54,6 @@ const FilterSheet = forwardRef<BottomSheetModal, FilterSheetProps>(
         backdropComponent={Backdrop}
         handleIndicatorStyle={{ backgroundColor: PS_TOKENS.ink3 }}
         backgroundStyle={{ backgroundColor: PS_TOKENS.card }}
-        onChange={(index) => console.log('[DEBUG] FilterSheet onChange index:', index)}
       >
         <BottomSheetView style={styles.container}>
           {/* Title */}

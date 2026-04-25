@@ -4,6 +4,7 @@ import {
   BottomSheetModal,
   BottomSheetScrollView,
   BottomSheetTextInput,
+  BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { Backdrop } from './Backdrop';
 import { PS_TOKENS } from '@/theme/tokens';
@@ -128,7 +129,7 @@ const ChatSheet = forwardRef<BottomSheetModal, ChatSheetProps>(
         keyboardBehavior="interactive"
         keyboardBlurBehavior="restore"
       >
-        <View style={styles.container}>
+        <BottomSheetView style={styles.container}>
           {/* Header */}
           <View style={styles.header}>
             <View style={styles.headerLeft}>
@@ -229,7 +230,7 @@ const ChatSheet = forwardRef<BottomSheetModal, ChatSheetProps>(
               <Text style={styles.sendArrow}>{'>'}</Text>
             </Pressable>
           </View>
-        </View>
+        </BottomSheetView>
       </BottomSheetModal>
     );
   },

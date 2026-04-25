@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, Animated } from 'react-native';
-import { BottomSheetModal, BottomSheetTextInput } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet';
 import { Backdrop } from './Backdrop';
 import { PS_TOKENS } from '@/theme/tokens';
 import { TEXT } from '@/theme/typography';
@@ -89,7 +89,7 @@ const ActionDrawer = forwardRef<BottomSheetModal, ActionDrawerProps>(
         handleIndicatorStyle={{ backgroundColor: PS_TOKENS.ink3 }}
         backgroundStyle={{ backgroundColor: PS_TOKENS.card }}
       >
-        <View style={styles.container}>
+        <BottomSheetView style={styles.container}>
           {/* Header */}
           <View style={styles.headerRow}>
             <View style={styles.heartBadge}>
@@ -159,7 +159,7 @@ const ActionDrawer = forwardRef<BottomSheetModal, ActionDrawerProps>(
               </Pressable>
             </View>
           )}
-        </View>
+        </BottomSheetView>
       </BottomSheetModal>
     );
   },

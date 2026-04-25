@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { BottomSheetModal, BottomSheetTextInput } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetTextInput, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Backdrop } from './Backdrop';
 import { PS_TOKENS } from '@/theme/tokens';
 import { TEXT } from '@/theme/typography';
@@ -97,8 +97,13 @@ const PostSheet = forwardRef<BottomSheetModal, PostSheetProps>(
         onDismiss={handleDismiss}
         handleIndicatorStyle={{ backgroundColor: PS_TOKENS.ink3 }}
         backgroundStyle={{ backgroundColor: PS_TOKENS.card }}
+        keyboardBehavior="extend"
+        keyboardBlurBehavior="restore"
       >
-        <View style={styles.container}>
+        <BottomSheetScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
+        >
           {/* Step 0 -- Type Picker */}
           {step === 0 && (
             <View style={styles.stepContainer}>
@@ -227,7 +232,7 @@ const PostSheet = forwardRef<BottomSheetModal, PostSheetProps>(
               </Pressable>
             </View>
           )}
-        </View>
+        </BottomSheetScrollView>
       </BottomSheetModal>
     );
   },
@@ -238,12 +243,13 @@ export { PostSheet };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: 22,
     paddingTop: 8,
+    paddingBottom: 24,
   },
   stepContainer: {
-    flex: 1,
+    flexGrow: 1,
   },
   stepTitle: {
     color: PS_TOKENS.ink,

@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { Backdrop } from './Backdrop';
 import { ALL_CATEGORIES } from '@/data/categories';
 import { PS_TOKENS } from '@/theme/tokens';
@@ -41,6 +41,8 @@ const FilterSheet = forwardRef<BottomSheetModal, FilterSheetProps>(
       }
     }, [local, onChange, ref]);
 
+    console.log('[DEBUG] FilterSheet render, local:', local, 'active:', active);
+
     const subtitle =
       local.length === 0
         ? 'Everything'
@@ -54,8 +56,9 @@ const FilterSheet = forwardRef<BottomSheetModal, FilterSheetProps>(
         backdropComponent={Backdrop}
         handleIndicatorStyle={{ backgroundColor: PS_TOKENS.ink3 }}
         backgroundStyle={{ backgroundColor: PS_TOKENS.card }}
+        onChange={(index) => console.log('[DEBUG] FilterSheet onChange index:', index)}
       >
-        <View style={styles.container}>
+        <BottomSheetView style={styles.container}>
           {/* Title */}
           <Text style={[TEXT.sheetTitle, styles.title]}>Show me</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
@@ -96,7 +99,7 @@ const FilterSheet = forwardRef<BottomSheetModal, FilterSheetProps>(
               <Text style={[TEXT.buttonLabel, styles.applyLabel]}>Apply</Text>
             </Pressable>
           </View>
-        </View>
+        </BottomSheetView>
       </BottomSheetModal>
     );
   },

@@ -2,7 +2,7 @@
 
 **Swipe right on democracy** -- civic engagement that feels like a dating app, not a textbook.
 
-Winner -- Governance & Accessibility Track | UMD x Anthropic Hackathon 2026
+Winner -- Governance & Accessibility Track | Anthropic x UMD 90-Minute Hackathon 2026
 
 [![DevPost](https://img.shields.io/badge/DevPost-PoliSwipe-003E54?style=for-the-badge&logo=devpost&logoColor=white)](https://devpost.com/software/poliswipe)
 

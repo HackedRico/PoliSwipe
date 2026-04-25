@@ -47,10 +47,11 @@ cd PoliSwipe
 npm install --legacy-peer-deps
 
 # Install Python dependencies
-pip install fastapi uvicorn httpx anthropic
+pip install -r requirements.txt
 
 # Add your API key
-echo 'ANTHROPIC_API_KEY="sk-ant-..."' > .env
+cp .env.example .env
+# Then edit .env with your actual Anthropic API key
 
 # Start everything (backend on :8000 + Expo on :8081)
 ./start.sh

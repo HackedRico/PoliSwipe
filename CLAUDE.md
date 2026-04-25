@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What Is PoliSwipe
 
-A civic engagement swipe-card app built for the UMD x Anthropic Hackathon. Users swipe through political/civic issue cards (like a Tinder UX) to engage with local, state, and federal topics. Built with React Native + Expo for iOS, with a FastAPI backend proxying to local Ollama for AI features.
+A civic engagement swipe-card app built for the UMD x Anthropic Hackathon. Users swipe through political/civic issue cards (like a Tinder UX) to engage with local, state, and federal topics. Built with React Native + Expo for iOS, with a FastAPI backend using the Claude API for AI features.
 
 ## Commands
 
@@ -65,9 +65,9 @@ Seven `BottomSheetModal` instances controlled via refs in StackScreen. Refs are 
 
 ### AI Features (Fallback-First)
 
-Two AI endpoints (`/api/draft`, `/api/chat`) proxy through the FastAPI backend to local Ollama (llama3.2:latest). Both degrade gracefully:
+Two AI endpoints (`/api/draft`, `/api/chat`) call the Claude API (Haiku) through the FastAPI backend. Both degrade gracefully:
 - Draft generation falls back to `card.draft` (pre-written text)
-- Chat tries scripted replies first (chatScripts.ts), then Ollama, then a fallback message
+- Chat tries scripted replies first (chatScripts.ts), then Claude, then a fallback message
 
 Backend auto-discovery uses `Constants.expoConfig.hostUri` to find the dev machine's LAN IP.
 

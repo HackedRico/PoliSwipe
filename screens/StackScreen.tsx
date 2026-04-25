@@ -135,7 +135,15 @@ export function StackScreen() {
       <ChatSheet ref={chatRef} card={activeCard} isGlobal={chatMode === 'global'} />
       <DetailsSheet ref={detailsRef} card={activeCard} />
       <FilterSheet ref={filterRef} active={filters} onChange={setFilters} />
-      <SavedSheet ref={savedRef} items={saved} />
+      <SavedSheet
+        ref={savedRef}
+        items={saved}
+        onViewCard={(card) => {
+          savedRef.current?.dismiss();
+          setActiveCard(card);
+          detailsRef.current?.present();
+        }}
+      />
       <PostSheet
         ref={postRef}
         onSubmit={(d) => { submitPost(d); }}

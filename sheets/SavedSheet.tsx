@@ -1,13 +1,15 @@
 import React, { forwardRef, useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BottomSheetModal, BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Backdrop } from './Backdrop';
 import { PS_TOKENS } from '@/theme/tokens';
 import { TEXT } from '@/theme/typography';
-import type { SavedItem } from '@/types';
+import type { Card, SavedItem } from '@/types';
 
 interface SavedSheetProps {
   items: SavedItem[];
+  onViewCard?: (card: Card) => void;
 }
 
 function formatWhen(isoString: string): string {
@@ -24,7 +26,7 @@ function formatWhen(isoString: string): string {
 }
 
 const SavedSheet = forwardRef<BottomSheetModal, SavedSheetProps>(
-  ({ items }, ref) => {
+  ({ items, onViewCard }, ref) => {
     const snapPoints = useMemo(() => ['90%'], []);
 
     const renderItem = ({ item }: { item: SavedItem }) => {
@@ -32,7 +34,11 @@ const SavedSheet = forwardRef<BottomSheetModal, SavedSheetProps>(
       const chipColor = PS_TOKENS.chip[card.type] ?? PS_TOKENS.ink;
 
       return (
-        <View style={styles.row}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.row}
+          onPress={() => onViewCard?.(card)}
+        >
           <View style={[styles.iconTile, { backgroundColor: chipColor + '22' }]}>
             <Text style={styles.iconEmoji}>{card.emoji}</Text>
           </View>
@@ -53,7 +59,7 @@ const SavedSheet = forwardRef<BottomSheetModal, SavedSheetProps>(
             </View>
           </View>
           <Text style={styles.chevron}>{'>'}</Text>
-        </View>
+        </TouchableOpacity>
       );
     };
 

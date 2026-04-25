@@ -4,6 +4,12 @@
 
 Winner -- Governance & Accessibility Track | UMD x Anthropic Hackathon 2026
 
+[![DevPost](https://img.shields.io/badge/DevPost-PoliSwipe-003E54?style=for-the-badge&logo=devpost&logoColor=white)](https://devpost.com/software/poliswipe)
+
+## Demo
+
+https://github.com/user-attachments/assets/038d8efa-28ee-4ad8-a1f5-d37d3dbf613d
+
 ## What is PoliSwipe?
 
 PoliSwipe is a swipe-card mobile app that makes civic participation as easy as swiping through a feed. Students swipe through real local bills, petitions, rallies, and campus issues -- each card is a real civic topic with a real representative attached.
@@ -104,4 +110,4 @@ Both use a three-tier fallback: Claude API -> scripted instant replies -> hardco
 
 ## License
 
-MIT
+[MIT](LICENSE)
